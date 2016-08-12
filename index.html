@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>A Cautionary Tale for Defensive Programmers</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/black.css">
@@ -24,8 +24,192 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h1>A Cautionary Tale for Defensive Programmers</h1>
+					<p>Bart Feenstra (Xano)</p>
+				</section>
+				<section>
+					<h2>Limit problems through simplicity & helpful failures</h2>
+				</section>
+				<section>
+					<section>
+						<h2>Shit. It happens.</h2>
+					</section>
+					<section>
+						<h2>Bugs</h2>
+					</section>
+					<section>
+						<h2>Unexpected usage</h2>
+						<ul>
+							<li>Discover and fix new bugs</li>
+							<li>Make software more useful</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Helpful failures reduce stress</h2>
+						<ul>
+							<li>Financial</li>
+							<li>Scheduling</li>
+							<li>Mental</li>
+							<li>Physical</li>
+							<li>Social</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Simplicity</h2>
+					</section>
+					<section>
+						<h2><strong>Not</strong> verbosity</h2>
+					</section>
+					<section>
+						<h2>Readability</h2>
+						<p>Unreadable code:</p>
+						<pre>
+							<code class="php">
+function foo($status, array $items) {
+	if ($status === TRUE && count($items) > 1) {
+		foreach ($items as $item) {
+		  // ...
+	  	}
+	}
+}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Readability</h2>
+						<p>Readable code:</p>
+						<pre>
+							<code class="php">
+function foo($status, array $items) {
+	if ($status === FALSE) {
+		return;
+	}
+
+	if (count($items) <= 1) {
+		return;
+	}
+
+	foreach ($items as $item) {
+		// ...
+  	}
+}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Maintainability</h2>
+						<p>How much does it cost to read, understand, and fix the code?</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Error handling</h2>
+					</section>
+					<section>
+						<h2>Locating problems</h2>
+						<ul>
+							<li>Where did the problem occur?</li>
+							<li>In which environment and scope?</li>
+							<li>How did the program get to the problem?</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Understanding problems</h2>
+						<ul>
+							<li>What action went wrong?</li>
+							<li>Why did the action go wrong?</li>
+							<li>What are underlying problems?</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Documentation</h2>
+						<pre>
+							<code class="elm">
+Detected errors in 1 module.
+
+
+-- NAMING ERROR ----------------------------------------------------------------
+
+Cannot find pattern `Tuer`
+
+8|   Tuer -> "124"
+     ^^^^
+Maybe you want one of the following?
+
+	True
+							</code>
+						</pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Validation</h2>
+						<p>A single action to ensures all preconditions are met.</p>
+					</section>
+					<section>
+						<h2>Input & output of systems:</h2>
+						<ul>
+							<li>Functions</li>
+							<li>Objects</li>
+							<li>Applications</li>
+							<li>Languages</li>
+							<li>Networks</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Input</h2>
+						<p>Any data coming into the system or interaction with the system that <strong>originates from outside</strong> the system:</p>
+						<ul>
+							<li>Form input.</li>
+							<li>Web service responses.</li>
+							<li>Public API calls from other code (design by contract).</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Output</h2>
+						<p>Any data going out of the system or interaction with outside the system that <strong>originates from your system</strong>:</p>
+						<ul>
+							<li>Web service responses.</li>
+							<li>Calls to other APIs.</li>
+							<li>Return values from your public APIs (design by contract).</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Constraints</h2>
+					</section>
+					<section>
+						<h2>Whitelists/blacklists</h2>
+					</section>
+					<section>
+						<h2>Type checking</h2>
+						<pre>
+							<code class="php">
+function add(int $a, int $b): int {
+	return $a + $b;
+}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Value objects</h2>
+						<p>Guarding internal state through non-public properties, and validation in state-changing methods.</p>
+						<pre>
+							<code class="python">
+from validate_email import validate_email
+
+
+class EmailAddress:
+    def __init__(self, EmailAddress):
+        if not validate_email(EmailAddress):
+            raise ValueError
+        self.email_address = EmailAddress
+							</code>
+						</pre>
+					</section>
+				</section>
 			</div>
 		</div>
 
@@ -35,7 +219,10 @@
 		<script>
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
+				controls: false,
+				progress: false,
 				history: true,
+				center: true,
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
