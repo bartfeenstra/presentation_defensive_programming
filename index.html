@@ -267,11 +267,8 @@ class EmailAddress:
 						</ul>
 					</section>
 					<section>
-						<h2>Raising exceptions</h2>
+						<h2>Throwing exceptions</h2>
 						<pre>
-							<code class="php">
-throw new SomethingWentWrongException()
-							</code>
 							<code class="python">
 raise new ValueError
 							</code>
@@ -283,29 +280,19 @@ raise new ValueError
 							<code class="php">
 class BadMethodCallException extends BadFunctionCallException {}
 							</code>
-							<code class="python">
-class UnicodeError(ValueError):
-  pass
-							</code>
 						</pre>
 						<p>Include information that helps locate and understand the problem!</p>
 					</section>
 					<section>
 						<h2>Catching exceptions</h2>
 						<pre>
-							<code class="php">
+							<code class="java">
 try {
   // Perform an action that may error fatally.
 }
-catch (\BadFunctionCallException $e) {
+catch (IllegalArgumentException e) {
   // Recover from this specific problem.
 }
-							</code>
-							<code class="python">
-try:
-  # Perform an action that may error fatally.
-except ValueError as e:
-  # Recover from this specific problem.
 							</code>
 						</pre>
 					</section>
