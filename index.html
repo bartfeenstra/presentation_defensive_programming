@@ -110,7 +110,7 @@
 							<code class="php">
 function foo($status, array $items) {
 	if ($status === TRUE && count($items) > 1) {
-		foreach ($items as $item) {
+		foreach ($items as $k => $v) {
 		  // ...
 	  	}
 	}
@@ -132,7 +132,7 @@ function foo($status, array $items) {
 		return;
 	}
 
-	foreach ($items as $item) {
+	foreach ($items as $priority => $item) {
 		// ...
   	}
 }
