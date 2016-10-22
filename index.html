@@ -264,6 +264,7 @@ class EmailAddress:
 						<ul>
 							<li>Fatal errors within a specific scope.</li>
 							<li>Can bubble up the stack to calling scopes.</li>
+							<li>Potentially recoverable in a calling scope.</li>
 						</ul>
 					</section>
 					<section>
@@ -307,7 +308,7 @@ catch (IllegalArgumentException e) {
 						<p class="fragment"><em>"Catch What You Can Handle"</em></p>
 					</section>
 					<section>
-						<h2>How to catch an exception?</h2>
+						<h2>Recovering from an exception</h2>
 						<ul>
 							<li>Solve the problem and re-try the action that threw the exception.</li>
 							<li>Log the exception.</li>
