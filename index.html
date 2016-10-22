@@ -246,7 +246,7 @@ class EmailAddress:
     def __init__(self, EmailAddress):
         if not validate_email(EmailAddress):
             raise ValueError
-        self.email_address = EmailAddress
+        self._email_address = EmailAddress
 							</code>
 						</pre>
 					</section>
